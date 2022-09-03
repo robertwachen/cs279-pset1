@@ -1,1 +1,1 @@
-# cs279-pset1
+# CS279 Problem Set 1
