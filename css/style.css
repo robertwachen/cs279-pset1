@@ -96,11 +96,11 @@ body{
   cursor: default;
   overflow: hidden;
   word-wrap: break-word;
-  width: 95%;
+  width: 100%;
 }
 .todoList li .icon{
   position: absolute;
-  right: -45px;
+  right: -0;
   top: 50%;
   transform: translateY(-50%);
   background: #e74c3c;
@@ -112,10 +112,6 @@ body{
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.todoList li:hover .icon{
-  right: 0px;
-}
-
 
 .wrapper .footer{
   display: flex;
@@ -220,12 +216,15 @@ body{
   transform: rotate(45deg);
 }
 
-.todotext {
+.todoText {
+}
+
+.todoTextChecked {
   text-decoration: line-through;
 }
 
-.checkedText {
-  text-decoration: line-through;
+.checkText {
+  user-select: none
 }
 
 /* Show the checkmark when checked */
@@ -237,4 +236,5 @@ a {
   color: inherit;
   text-decoration: inherit;
   cursor: inherit;
+  user-select: none;
 }

@@ -19,20 +19,28 @@
       <!-- Data comes from local storage -->
     </ul>
     <div class="footer">
-      <span>You have <span class="upcomingTasks"></span> upcoming tasks</span>
+      <span class="upcomingTasks"></span>
       <button>Clear All</button>
     </div>
   </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <script>
-    $(document).ready(function () {
-      $('a.todotext').click(function(){
-        // $('a.todotext').removeClass("checkedText");
-        $(this).addClass("checkedText");
-        console.log('asdsandio')
-      });
+    // $(document).ready(function () {
+    //   $('a.todotext').live('click', function(){
+    //     $('a.todotext').addClass("checkedText");
+    //     console.log('asdsandio')
+    //   });
+    // });
+    $(document).on('click', '.todotext', function() {
+      console.log($(this).text())
+        if ($(this).css('text-decoration-line') === "")
+            $(this).css('text-decoration-line', 'line-through');
+        else
+            $(this).css('text-decoration-line', "");
     });
+
+    
     
   </script>
 
