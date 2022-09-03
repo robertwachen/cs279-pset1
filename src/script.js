@@ -37,8 +37,8 @@ addBtn.onclick = () =>
     listArray = JSON.parse(getLocalStorageData);  
   }
 
-  // Adds new todo list to array of todos
-  listArray.push([userEnteredValue, 'unchecked']); 
+  // Adds new todo list to front of array of todos
+  listArray.unshift([userEnteredValue, 'unchecked']); 
 
   console.log(listArray)
 
@@ -64,10 +64,36 @@ function showTasks()
   {
     listArray = JSON.parse(getLocalStorageData); 
   }
+
   const upcomingTasksNumb = document.querySelector(".upcomingTasks");
 
   // Allows array length to be referenced in upcomingtask
-  upcomingTasksNumb.textContent = listArray.length;
+  let unfinishedTasks = 0;
+  listArray.forEach((element, index) => {
+    if (element[1] === 'unchecked')
+    {
+      unfinishedTasks++;
+    }
+  })
+
+  if (listArray.length === 0)
+  {
+    upcomingTasksNumb.textContent = "Add some tasks!"
+  }
+  else if (unfinishedTasks === 0)
+  {
+    upcomingTasksNumb.textContent = "You finished your tasks!"
+  }
+  else if (unfinishedTasks === 1)
+  {
+    upcomingTasksNumb.textContent = "You have " + unfinishedTasks + " unfinished task"
+  }
+  else
+  {
+    upcomingTasksNumb.textContent = "You have " + unfinishedTasks + " unfinished tasks"
+  }
+
+  // upcomingTasksNumb.textContent = unfinishedTasks;
   
   if (listArray.length > 0)
   {
@@ -83,47 +109,40 @@ function showTasks()
   // Adds each individual task to the todo list
   listArray.forEach((element, index) => 
   {
-    newLiTag += 
-    `
-      <li class="todoItem">
-        <a class="todotext" checked="checked" onclick="checkTask(${index})" href="#">${element}</a>
-        <span class="icon" onclick="deleteTask(${index})">
-                <i class="fas fa-trash">
-                </i>
-        </span>
-      </li>
-    `;
-    /*
 
-    <label class="checkContainer"
-            <input type="checkbox" checked="checked">
-            <span class="checkmark"></span>
-        </label>
-
-    <li class="todoItem">
-        <label class="checkContainer" onclick="checkTask(${index})"
-            <input type="checkbox" checked="checked">
-            <span class="checkmark"></span>
-        </label>
-        <text>${element}</text>
-        <span class="icon" onclick="deleteTask(${index})">
-                <i class="fas fa-trash">
-                </i>
-        </span>
-      </li>
-
-    <div class="todoItem">
-        <input type="checkbox" class="todoCheckbox" id="${index}">
-        <li>
-        
-            ${element}
-            <span class="icon" onclick="deleteTask(${index})">
-                <i class="fas fa-trash">
-                </i>
-            </span>
+    if (element[1] === 'checked')
+    {
+      newLiTag += 
+      `
+        <li class="todoItem" onclick="checkTask(${index})">
+          <text class="checkText">✅</text>
+          <a class="todoTextChecked" checked="checked" href="#">
+          ${element[0]}
+          </a>
+          <span class="icon" onclick="deleteTask(${index})">
+                  <i class="fas fa-trash">
+                  </i>
+          </span>
         </li>
-    </div>
-    */
+      `;
+    }
+    else
+    {
+      newLiTag += 
+      `
+        <li class="todoItem" onclick="checkTask(${index})"> 
+          <text class="checkText">☐</text>
+          <a class="todoText"" href="#">
+          ${element[0]}
+          </a>
+          <span class="icon" onclick="deleteTask(${index})">
+                  <i class="fas fa-trash">
+                  </i>
+          </span>
+        </li>
+      `;
+    }
+    
   });
 
   // Adds new li tag to the todo list ul tag
@@ -155,6 +174,21 @@ function checkTask(index) {
   if (listArray[index][1] === 'unchecked')
   {
     listArray[index][1] = 'checked';
+
+    console.log(listArray)
+
+    let temp = listArray[index];
+    listArray.splice(index, 1)
+    listArray.push(temp)
+
+    console.log('asda')
+
+
+    // let temp = listArray[index];
+    // let lastUnchecked = 2
+    // listArray[index] = listArray[x];
+    // listArray[x] = temp;
+
     $(this).addClass("checkedText");
   }
   else
