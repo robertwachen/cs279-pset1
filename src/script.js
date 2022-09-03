@@ -40,8 +40,6 @@ addBtn.onclick = () =>
   // Adds new todo list to front of array of todos
   listArray.unshift([userEnteredValue, 'unchecked']); 
 
-  console.log(listArray)
-
   // Updates local storage with a JSON string
   localStorage.setItem("New Todo", JSON.stringify(listArray));
 
@@ -165,7 +163,7 @@ function deleteTask(index){
   showTasks();
 }
 
-// My code: allows user to mark a task as done without deleting it
+// Allows user to mark a task as done without deleting it
 function checkTask(index) {
   let getLocalStorageData = localStorage.getItem("New Todo");
   listArray = JSON.parse(getLocalStorageData);
@@ -175,19 +173,9 @@ function checkTask(index) {
   {
     listArray[index][1] = 'checked';
 
-    console.log(listArray)
-
     let temp = listArray[index];
     listArray.splice(index, 1)
     listArray.push(temp)
-
-    console.log('asda')
-
-
-    // let temp = listArray[index];
-    // let lastUnchecked = 2
-    // listArray[index] = listArray[x];
-    // listArray[x] = temp;
 
     $(this).addClass("checkedText");
   }
